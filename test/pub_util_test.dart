@@ -10,7 +10,7 @@ const Map<String, String> packages = const {
 
 void main() {
   group('pub_util', () {
-    setUp(() {
+    setUpAll(() {
       packages.forEach((name, version) async {
         final result =
             await Process.run('pub', ['global', 'activate', name, version]);
@@ -70,7 +70,7 @@ void main() {
       expect(updatedResult.stdout, contains('You have 0 outdated packages'));
     });
 
-    tearDown(() {
+    tearDownAll(() {
       packages.keys.forEach((p) async {
         await Process.run('pub', ['global', 'deactivate', p]);
       });
