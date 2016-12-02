@@ -64,7 +64,7 @@ _processGlobal(ArgResults flags) async {
 _getGlobalPackageList() async {
   try {
     final results =
-        await Process.run(pub, ['global', 'list'], workingDirectory: dartDir);
+        await _runProcess(pub, ['global', 'list'], workingDirectory: dartDir);
     if (results.exitCode == 0) {
       return (results.stdout as String).trim().split('\n').map((s) {
         final parts = s.split(' ');
@@ -92,7 +92,7 @@ _updateOutdatedPackages(Iterable<Package> packages) async {
     if (p.version != p.latest && p.latest != null) {
       print('Updating ${p.name} from ${p.version} to ${p.latest}');
       try {
-        final results = await Process.run(pub, ['global', 'activate', p.name],
+        final results = await _runProcess(pub, ['global', 'activate', p.name],
             workingDirectory: dartDir);
         if (results.exitCode == 0) {
           print('Updated ${p.name} to ${p.latest}');
@@ -119,6 +119,14 @@ _getLatestPackageVersion(String name) async {
   } catch (e) {
     print(e);
   }
+}
+
+_runProcess(String process, List<String> args,
+    {String workingDirectory}) async {
+  if (await FileSystemEntity.isDirectory(workingDirectory)) {
+    return await Process.run(process, args, workingDirectory: workingDirectory);
+  }
+  return await Process.run(process, args);
 }
 
 class Package {

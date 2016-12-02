@@ -22,12 +22,8 @@ void main() {
   group('pub_util', () {
     setUpAll(() {
       packages.forEach((name, version) {
-        if (FileSystemEntity.isDirectorySync(dartDir)) {
-          Process.runSync(pub, ['global', 'activate', name, version],
-              workingDirectory: dartDir);
-        } else {
-          Process.runSync(pub, ['global', 'activate', name, version]);
-        }
+        _runProcessSync(pub, ['global', 'activate', name, version],
+            workingDirectory: dartDir);
       });
     });
 
@@ -47,8 +43,6 @@ void main() {
     test('should list global packages with the -l flag', () async {
       final result = await Process.run('dart', ['bin/pub_util.dart', '-l'],
           environment: env);
-
-      print(result.stderr);
 
       expect(result.exitCode, 0);
       expect(result.stderr, '');
@@ -91,13 +85,16 @@ void main() {
 
     tearDownAll(() {
       packages.keys.forEach((p) {
-        if (FileSystemEntity.isDirectorySync(dartDir)) {
-          Process.runSync(pub, ['global', 'deactivate', p],
-              workingDirectory: dartDir);
-        } else {
-          Process.runSync(pub, ['global', 'deactivate', p]);
-        }
+        _runProcessSync(pub, ['global', 'deactivate', p],
+            workingDirectory: dartDir);
       });
     });
   });
+}
+
+_runProcessSync(String process, List<String> args, {String workingDirectory}) {
+  if (FileSystemEntity.isDirectorySync(workingDirectory)) {
+    return Process.runSync(process, args, workingDirectory: workingDirectory);
+  }
+  return Process.runSync(process, args);
 }
