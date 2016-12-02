@@ -1,6 +1,12 @@
 version: 1.0.{build}
 install:
-- cmd: "choco install dart-sdk\nrefreshenv\ndart --version \npub global activate stagehand 1.0.18\npub get"
+  - choco install dart-sdk
+  - ps: refreshenv
+  - dart --version
+  - pub global activate stagehand 1.0.18
+  - ps: pwd
+  - pub get
+
 build: off
 test_script:
-- cmd: c:\tools\dart-sdk\bin\pub.bat run test
+  - pub run test
