@@ -1,4 +1,4 @@
-# pub_util [![Build Status](https://travis-ci.org/kulshekhar/pub_util.dart.svg?branch=master)](https://travis-ci.org/kulshekhar/pub_util.dart) [![Build status on windows](https://ci.appveyor.com/api/projects/status/j8nyrlexct8l1vrl?svg=true)](https://ci.appveyor.com/project/kulshekhar/pub-util-dart)
+# pub_util [![Build Status](https://travis-ci.org/kulshekhar/pub_util.dart.svg?branch=master)](https://travis-ci.org/kulshekhar/pub_util.dart) [![Build status on windows](https://ci.appveyor.com/api/projects/status/j8nyrlexct8l1vrl/branch/master?svg=true)](https://ci.appveyor.com/project/kulshekhar/pub-util-dart/branch/master)
 
 `pub_util` is a utility that can help list and update globally 
 installed outdated Dart packages.
