@@ -1,7 +1,7 @@
 name: pub_util
 description: Utility to manage globally installed packages
 author: Kulshekhar Kabra <kulshekhar+dart@gmail.com>
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/kulshekhar/pub_util.dart
 
 environment:
