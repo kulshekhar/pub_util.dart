@@ -48,6 +48,8 @@ void main() {
       final result = await Process.run('dart', ['bin/pub_util.dart', '-l'],
           environment: env);
 
+      print(result.stderr);
+
       expect(result.exitCode, 0);
       expect(result.stderr, '');
       packages.forEach((name, version) {
