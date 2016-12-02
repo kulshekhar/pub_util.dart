@@ -1,0 +1,6 @@
+version: 1.0.{build}
+install:
+- cmd: "choco install dart-sdk\nrefreshenv\ndart --version \npub get"
+build: off
+test_script:
+- cmd: c:\tools\dart-sdk\bin\pub.bat run test
