@@ -1,0 +1,8 @@
+language: dart
+
+before_install:
+  - pub get
+
+script:
+  - pub run test
+  

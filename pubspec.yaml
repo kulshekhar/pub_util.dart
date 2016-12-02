@@ -11,5 +11,8 @@ dependencies:
   args: ^0.13.7
   http: ^0.11.3
 
+dev_dependencies:
+  test: ^0.12.17
+
 executables:
   pub_util:

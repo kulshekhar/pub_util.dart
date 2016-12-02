@@ -1,0 +1,6 @@
+install:
+  - choco install dart-sdk
+  - pub get
+
+test_script:
+  - pub run test
