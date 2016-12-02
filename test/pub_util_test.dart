@@ -13,7 +13,9 @@ void main() {
     setUpAll(() {
       packages.forEach((name, version) {
         try {
-          final r1 = Process.runSync('pub', []);
+          final r1 = Process.runSync('pub', [], environment: {
+            'path': Platform.environment['pub_util_test_path']
+          });
           print(r1.stdout);
           Process.runSync('pub', ['global', 'activate', name, version]);
         } catch (e) {
