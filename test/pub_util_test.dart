@@ -11,9 +11,9 @@ const Map<String, String> packages = const {
 void main() {
   group('pub_util', () {
     setUpAll(() {
-      packages.forEach((name, version) {
+      packages.forEach((name, version) async {
         final result =
-            Process.runSync('pub', ['global', 'activate', name, version]);
+            await Process.run('pub', ['global', 'activate', name, version]);
         print(result.exitCode);
         print('Error: ${result.stderr}');
         print('Output: ${result.stdout}');
@@ -71,8 +71,8 @@ void main() {
     });
 
     tearDownAll(() {
-      packages.keys.forEach((p) {
-        Process.run('pub', ['global', 'deactivate', p]);
+      packages.keys.forEach((p) async {
+        await Process.run('pub', ['global', 'deactivate', p]);
       });
     });
   });
