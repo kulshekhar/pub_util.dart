@@ -9,16 +9,15 @@ const Map<String, String> packages = const {
 };
 
 void main() {
+  final pub = Platform.environment['PUB_EXECUTABLE'] ?? 'pub';
   group('pub_util', () {
     setUpAll(() {
-      final pub = Platform.environment['PUB_EXECUTABLE'] ?? 'pub';
-      print('>>> ${Platform.environment['PUB_UTIL_TEST_PATH']}');
-      print('>>> pub');
+      print('>>> ${Platform.environment['PUB_UTIL_TEST_PATHs']}');
       packages.forEach((name, version) {
         try {
           final r1 = Process.runSync(pub, []);
           print(r1.stdout);
-          Process.runSync('pub', ['global', 'activate', name, version]);
+          Process.runSync(pub, ['global', 'activate', name, version]);
         } catch (e) {
           print(e);
         }
@@ -78,7 +77,7 @@ void main() {
     tearDownAll(() {
       packages.keys.forEach((p) {
         try {
-          Process.runSync('pub', ['global', 'deactivate', p]);
+          Process.runSync(pub, ['global', 'deactivate', p]);
         } catch (e) {
           print(e);
         }
