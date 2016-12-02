@@ -11,13 +11,12 @@ const Map<String, String> packages = const {
 void main() {
   group('pub_util', () {
     setUpAll(() {
+      final pub = Platform.environment['PUB_EXECUTABLE'] ?? 'pub';
       print('>>> ${Platform.environment['PUB_UTIL_TEST_PATH']}');
-      print('>>> ${Platform.environment['PUB_EXECUTABLE']}');
+      print('>>> pub');
       packages.forEach((name, version) {
         try {
-          final r1 = Process.runSync('pub', [], environment: {
-            'path': Platform.environment['PUB_UTIL_TEST_PATH']
-          });
+          final r1 = Process.runSync(pub, []);
           print(r1.stdout);
           Process.runSync('pub', ['global', 'activate', name, version]);
         } catch (e) {
