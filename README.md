@@ -6,9 +6,6 @@ installed outdated Dart packages.
 The hope is that this functionality will eventually be available in the 
 standard `pub global` command.
 
-**Warning**: This package has no tests, has only been used on Linux and is the
-result of only a few hours of work. As such, use it at your own risk.
-
 ### Installation
 
 ```
