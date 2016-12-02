@@ -4,7 +4,7 @@ install:
   - ps: refreshenv
   - refreshenv
   - which dart
-  - pub
+  - which pub.bat
   - ps: pwd
   - pub get
 
