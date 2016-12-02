@@ -1,3 +1,5 @@
+version: "{build}"
+
 install:
   - choco install dart-sdk
   - pub get
