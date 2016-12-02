@@ -6,6 +6,8 @@ import 'package:args/args.dart';
 import 'package:http/http.dart' as http;
 
 const PUB_API_BASE_URL = 'https://pub.dartlang.org/api';
+final pub = Platform.environment['PUB_EXECUTABLE'] ?? 'pub';
+final dartDir = Platform.environment['DART_DIR'];
 
 main(List<String> args) {
   final parser = new ArgParser();
@@ -58,7 +60,8 @@ _processGlobal(ArgResults flags) async {
 
 _getGlobalPackageList() async {
   try {
-    final results = await Process.run('pub', ['global', 'list']);
+    final results =
+        await Process.run(pub, ['global', 'list'], workingDirectory: dartDir);
     if (results.exitCode == 0) {
       return (results.stdout as String).trim().split('\n').map((s) {
         final parts = s.split(' ');
@@ -86,8 +89,8 @@ _updateOutdatedPackages(Iterable<Package> packages) async {
     if (p.version != p.latest && p.latest != null) {
       print('Updating ${p.name} from ${p.version} to ${p.latest}');
       try {
-        final results =
-            await Process.run('pub', ['global', 'activate', p.name]);
+        final results = await Process.run(pub, ['global', 'activate', p.name],
+            workingDirectory: dartDir);
         if (results.exitCode == 0) {
           print('Updated ${p.name} to ${p.latest}');
         } else {

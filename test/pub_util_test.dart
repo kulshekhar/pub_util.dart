@@ -25,7 +25,8 @@ void main() {
     });
 
     test('should display the flags when run without arguments', () async {
-      final result = await Process.run('dart', ['bin/pub_util.dart']);
+      final result = await Process.run('dart', ['bin/pub_util.dart'],
+          environment: {'PUB_EXECUTABLE': pub, 'DART_DIR': dartDir});
       expect(result.exitCode, 0);
       expect(result.stderr, '');
       expect(result.stdout,
