@@ -11,6 +11,8 @@ const Map<String, String> packages = const {
 void main() {
   group('pub_util', () {
     setUpAll(() {
+      print('>>> ${Platform.environment['PUB_UTIL_TEST_PATH']}');
+      print('>>> ${Platform.environment['PUB_EXECUTABLE']}');
       packages.forEach((name, version) {
         try {
           final r1 = Process.runSync('pub', [], environment: {

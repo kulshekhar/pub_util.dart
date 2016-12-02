@@ -4,6 +4,7 @@ install:
   - ps: refreshenv
   - refreshenv
   - set PUB_UTIL_TEST_PATH=c:\tools\dart-sdk\bin
+  - set PUB_EXECUTABLE=c:\tools\dart-sdk\bin\pub.bat
   - ps: pwd
   - pub get
 
