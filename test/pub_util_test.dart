@@ -9,7 +9,10 @@ const Map<String, String> packages = const {
 };
 
 void main() {
-  final pub = Platform.environment['PUB_EXECUTABLE'] ?? 'pub';
+  final pub = Platform.environment['PUB_EXECUTABLE'] == null ||
+          Platform.environment['PUB_EXECUTABLE'] == ''
+      ? 'pub'
+      : Platform.environment['PUB_EXECUTABLE'];
   final dartDir = Platform.environment['DART_DIR'] ?? '';
   final env = {'PUB_EXECUTABLE': pub, 'DART_DIR': dartDir};
 
