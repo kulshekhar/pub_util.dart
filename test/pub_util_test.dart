@@ -19,8 +19,12 @@ void main() {
   group('pub_util', () {
     setUpAll(() {
       packages.forEach((name, version) {
-        Process.runSync(pub, ['global', 'activate', name, version],
-            workingDirectory: dartDir);
+        if (FileSystemEntity.isDirectorySync(dartDir)) {
+          Process.runSync(pub, ['global', 'activate', name, version],
+              workingDirectory: dartDir);
+        } else {
+          Process.runSync(pub, ['global', 'activate', name, version]);
+        }
       });
     });
 
@@ -82,8 +86,12 @@ void main() {
 
     tearDownAll(() {
       packages.keys.forEach((p) {
-        Process.runSync(pub, ['global', 'deactivate', p],
-            workingDirectory: dartDir);
+        if (FileSystemEntity.isDirectorySync(dartDir)) {
+          Process.runSync(pub, ['global', 'deactivate', p],
+              workingDirectory: dartDir);
+        } else {
+          Process.runSync(pub, ['global', 'deactivate', p]);
+        }
       });
     });
   });
