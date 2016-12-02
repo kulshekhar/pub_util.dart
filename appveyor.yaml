@@ -2,5 +2,7 @@ install:
   - choco install dart-sdk
   - pub get
 
+build: off
+
 test_script:
   - pub run test
