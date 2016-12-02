@@ -2,6 +2,7 @@ version: 1.0.{build}
 install:
   - choco install dart-sdk
   - ps: refreshenv
+  - refreshenv
   - dart --version
   - pub global activate stagehand 1.0.18
   - ps: pwd
