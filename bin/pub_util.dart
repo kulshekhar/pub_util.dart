@@ -6,7 +6,10 @@ import 'package:args/args.dart';
 import 'package:http/http.dart' as http;
 
 const PUB_API_BASE_URL = 'https://pub.dartlang.org/api';
-final pub = Platform.environment['PUB_EXECUTABLE'] ?? 'pub';
+final pub = Platform.environment['PUB_EXECUTABLE'] == null ||
+        Platform.environment['PUB_EXECUTABLE'] == ''
+    ? 'pub'
+    : Platform.environment['PUB_EXECUTABLE'];
 final dartDir = Platform.environment['DART_DIR'] ?? '';
 
 main(List<String> args) {
