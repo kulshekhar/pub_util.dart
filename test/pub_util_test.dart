@@ -10,14 +10,14 @@ const Map<String, String> packages = const {
 
 void main() {
   final pub = Platform.environment['PUB_EXECUTABLE'] ?? 'pub';
+  final pubDir = Platform.environment['PUB_DIR'];
+
   group('pub_util', () {
     setUpAll(() {
-      print('>>> ${Platform.environment['PUB_UTIL_TEST_PATHs']}');
       packages.forEach((name, version) {
         try {
-          final r1 = Process.runSync(pub, []);
-          print(r1.stdout);
-          Process.runSync(pub, ['global', 'activate', name, version]);
+          Process.runSync(pub, ['global', 'activate', name, version],
+              workingDirectory: pubDir);
         } catch (e) {
           print(e);
         }
