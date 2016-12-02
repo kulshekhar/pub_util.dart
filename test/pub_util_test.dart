@@ -12,11 +12,11 @@ void main() {
   group('pub_util', () {
     setUpAll(() {
       packages.forEach((name, version) {
-        final result =
-            Process.runSync('pub', ['global', 'activate', name, version]);
-        print(result.exitCode);
-        print('Error: ${result.stderr}');
-        print('Output: ${result.stdout}');
+        try {
+          Process.runSync('pub', ['global', 'activate', name, version]);
+        } catch (e) {
+          print(e);
+        }
       });
     });
 
@@ -72,7 +72,11 @@ void main() {
 
     tearDownAll(() {
       packages.keys.forEach((p) {
-        Process.runSync('pub', ['global', 'deactivate', p]);
+        try {
+          Process.runSync('pub', ['global', 'deactivate', p]);
+        } catch (e) {
+          print(e);
+        }
       });
     });
   });
