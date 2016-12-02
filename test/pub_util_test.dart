@@ -12,7 +12,11 @@ void main() {
   group('pub_util', () {
     setUpAll(() {
       packages.forEach((name, version) {
-        Process.runSync('pub', ['global', 'activate', name, version]);
+        final result =
+            Process.runSync('pub', ['global', 'activate', name, version]);
+        print(result.exitCode);
+        print('Error: ${result.stderr}');
+        print('Output: ${result.stdout}');
       });
     });
 
