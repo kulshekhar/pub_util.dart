@@ -14,7 +14,10 @@ void main() {
       ? 'pub'
       : Platform.environment['PUB_EXECUTABLE'];
   final dartDir = Platform.environment['DART_DIR'] ?? '';
-  final env = {'PUB_EXECUTABLE': pub, 'DART_DIR': dartDir};
+  final env = {'PUB_EXECUTABLE': pub};
+  if (FileSystemEntity.isDirectorySync(dartDir)) {
+    env['DART_DIR'] = dartDir;
+  }
 
   group('pub_util', () {
     setUpAll(() {
