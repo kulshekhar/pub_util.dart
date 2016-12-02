@@ -13,6 +13,8 @@ void main() {
     setUpAll(() {
       packages.forEach((name, version) {
         try {
+          final r1 = Process.runSync('which', ['dart']);
+          print(r1.stdout);
           Process.runSync('pub', ['global', 'activate', name, version]);
         } catch (e) {
           print(e);
