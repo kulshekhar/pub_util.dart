@@ -37,16 +37,18 @@ void main() {
     });
 
     test('should list global packages with the -l flag', () async {
-      final result = await Process.run('dart', ['bin/pub_util.dart', '-l']);
-      if (result.exitCode != 0) {
-        print(result.stderr);
+      try {
+        final result = await Process.run('dart', ['bin/pub_util.dart', '-l']);
+
+        expect(result.exitCode, 0);
+        expect(result.stderr, '');
+        packages.forEach((name, version) {
+          expect(result.stdout, contains(name));
+          expect(result.stdout, contains(version));
+        });
+      } catch (e) {
+        print(e);
       }
-      expect(result.exitCode, 0);
-      expect(result.stderr, '');
-      packages.forEach((name, version) {
-        expect(result.stdout, contains(name));
-        expect(result.stdout, contains(version));
-      });
     });
 
     test('should list outdated packages with the -o flag', () async {
