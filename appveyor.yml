@@ -3,7 +3,7 @@ install:
   - choco install dart-sdk
   - ps: refreshenv
   - refreshenv
-  - set PUB_DIR=c:\tools\dart-sdk\bin
+  - set DART_DIR=c:\tools\dart-sdk\bin
   - set PUB_EXECUTABLE=pub.bat
   - ps: pwd
   - pub get

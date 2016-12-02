@@ -10,14 +10,14 @@ const Map<String, String> packages = const {
 
 void main() {
   final pub = Platform.environment['PUB_EXECUTABLE'] ?? 'pub';
-  final pubDir = Platform.environment['PUB_DIR'];
+  final dartDir = Platform.environment['DART_DIR'];
 
   group('pub_util', () {
     setUpAll(() {
       packages.forEach((name, version) {
         try {
           Process.runSync(pub, ['global', 'activate', name, version],
-              workingDirectory: pubDir);
+              workingDirectory: dartDir);
         } catch (e) {
           print(e);
         }
@@ -25,7 +25,8 @@ void main() {
     });
 
     test('should display the flags when run without arguments', () async {
-      final result = await Process.run('dart', ['bin/pub_util.dart']);
+      final result = await Process.run('dart', ['bin/pub_util.dart'],
+          workingDirectory: dartDir);
       expect(result.exitCode, 0);
       expect(result.stderr, '');
       expect(result.stdout,
@@ -37,7 +38,8 @@ void main() {
     });
 
     test('should list global packages with the -l flag', () async {
-      final result = await Process.run('dart', ['bin/pub_util.dart', '-l']);
+      final result = await Process.run('dart', ['bin/pub_util.dart', '-l'],
+          workingDirectory: dartDir);
       expect(result.exitCode, 0);
       expect(result.stderr, '');
       packages.forEach((name, version) {
@@ -47,8 +49,9 @@ void main() {
     });
 
     test('should list outdated packages with the -o flag', () async {
-      final result = await Process
-          .run('dart', ['bin${Platform.pathSeparator}pub_util.dart', '-o']);
+      final result = await Process.run(
+          'dart', ['bin${Platform.pathSeparator}pub_util.dart', '-o'],
+          workingDirectory: dartDir);
       expect(result.exitCode, 0);
       expect(result.stdout, contains('update available'));
       expect(result.stdout,
@@ -56,8 +59,9 @@ void main() {
     });
 
     test('should update outdated packages with the -u flag', () async {
-      final result = await Process
-          .run('dart', ['bin${Platform.pathSeparator}pub_util.dart', '-u']);
+      final result = await Process.run(
+          'dart', ['bin${Platform.pathSeparator}pub_util.dart', '-u'],
+          workingDirectory: dartDir);
       expect(result.exitCode, 0);
       expect(result.stdout,
           contains('You have ${packages.length} outdated packages'));
@@ -67,8 +71,9 @@ void main() {
         expect(result.stdout, contains('Updated $name to'));
       });
 
-      final updatedResult = await Process
-          .run('dart', ['bin${Platform.pathSeparator}pub_util.dart', '-u']);
+      final updatedResult = await Process.run(
+          'dart', ['bin${Platform.pathSeparator}pub_util.dart', '-u'],
+          workingDirectory: dartDir);
       expect(updatedResult.exitCode, 0);
       expect(updatedResult.stderr, '');
       expect(updatedResult.stdout, contains('You have 0 outdated packages'));
@@ -77,7 +82,8 @@ void main() {
     tearDownAll(() {
       packages.keys.forEach((p) {
         try {
-          Process.runSync(pub, ['global', 'deactivate', p]);
+          Process.runSync(pub, ['global', 'deactivate', p],
+              workingDirectory: dartDir);
         } catch (e) {
           print(e);
         }
