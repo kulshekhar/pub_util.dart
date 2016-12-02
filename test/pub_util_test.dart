@@ -10,15 +10,15 @@ const Map<String, String> packages = const {
 
 void main() {
   group('pub_util', () {
-    setUpAll(() {
-      packages.forEach((name, version) {
-        final result =
-            Process.runSync('pub', ['global', 'activate', name, version]);
-        print(result.exitCode);
-        print('Error: ${result.stderr}');
-        print('Output: ${result.stdout}');
-      });
-    });
+    // setUpAll(() {
+    //   packages.forEach((name, version) {
+    //     final result =
+    //         Process.runSync('pub', ['global', 'activate', name, version]);
+    //     print(result.exitCode);
+    //     print('Error: ${result.stderr}');
+    //     print('Output: ${result.stdout}');
+    //   });
+    // });
 
     test('should display the flags when run without arguments', () async {
       final result = await Process.run('dart', ['bin/pub_util.dart']);
@@ -70,10 +70,10 @@ void main() {
       expect(updatedResult.stdout, contains('You have 0 outdated packages'));
     });
 
-    tearDownAll(() {
-      packages.keys.forEach((p) {
-        Process.runSync('pub', ['global', 'deactivate', p]);
-      });
-    });
+    // tearDownAll(() {
+    //   packages.keys.forEach((p) {
+    //     Process.runSync('pub', ['global', 'deactivate', p]);
+    //   });
+    // });
   });
 }
